@@ -22,7 +22,8 @@ RUN apk --update add \
   libzip-dev \
   gettext-dev \
   libxslt-dev \
-  libgcrypt-dev &&\
+  libgcrypt-dev \
+  mariadb-client &&\
   rm /var/cache/apk/*
 
 RUN pecl channel-update pecl.php.net && \

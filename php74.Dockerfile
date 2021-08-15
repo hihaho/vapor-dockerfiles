@@ -23,6 +23,7 @@ RUN apk --update add \
   gettext-dev \
   libxslt-dev \
   libgcrypt-dev \
+  composer \
   mariadb-client &&\
   rm /var/cache/apk/*
 

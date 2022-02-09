@@ -1,0 +1,39 @@
+name: Build Vapor image
+
+on:
+
+  workflow_dispatch:
+
+  schedule:
+    - cron: '0 0 * * 1'
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    env:
+      COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}
+
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        php:
+          - 8.1
+
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          fetch-depth: 1
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@2.17.0
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: curl, libxml, mbstring, zip, pcntl, pdo, pdo_mysql, pdo_sqlite, bcmath, intl, gd, exif, iconv, json, ctype, mongodb, redis
+          coverage: none
+          tools: composer:v2
+
+      - name: Build image
+        run: bash build.sh php81
+

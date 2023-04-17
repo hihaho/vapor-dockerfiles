@@ -22,11 +22,15 @@ RUN apk --update add \
     libzip-dev \
     gettext-dev \
     libxslt-dev \
-    libgcrypt-dev &&\
+    libgcrypt-dev \
+    linux-headers \
+    composer \
+    mariadb-client && \
     rm /var/cache/apk/*
 
 RUN pecl channel-update pecl.php.net && \
-    pecl install mcrypt redis-5.3.7 && \
+    pecl install mcrypt imagick redis && \
+    pecl install mongodb && \
     rm -rf /tmp/pear
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
@@ -52,7 +56,7 @@ RUN docker-php-ext-install \
 RUN docker-php-ext-configure gd --with-freetype=/usr/lib/ --with-jpeg=/usr/lib/ && \
     docker-php-ext-install gd
 
-RUN docker-php-ext-enable redis
+RUN docker-php-ext-enable imagick redis mongodb
 
 RUN cp "/etc/ssl/cert.pem" /opt/cert.pem
 

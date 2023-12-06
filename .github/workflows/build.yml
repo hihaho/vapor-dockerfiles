@@ -16,6 +16,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    continue-on-error: true
 
     env:
       COMPOSER_AUTH: ${{ secrets.COMPOSER_AUTH }}

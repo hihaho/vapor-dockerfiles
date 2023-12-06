@@ -28,7 +28,10 @@ RUN apk --update add \
     rm /var/cache/apk/*
 
 RUN pecl channel-update pecl.php.net && \
-    pecl install mcrypt redis imagick mongodb && \
+    pecl install mcrypt \
+    redis \
+    imagick \
+    mongodb && \
     rm -rf /tmp/pear
 
 RUN docker-php-ext-install \

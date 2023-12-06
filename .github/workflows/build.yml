@@ -3,6 +3,12 @@ name: Build Vapor image
 on:
 
   workflow_dispatch:
+    inputs:
+      should_publish:
+        description: 'Should the image be published?'
+        type: boolean
+        default: false
+        required: false
 
   schedule:
     - cron: '0 0 * * 1'
@@ -41,4 +47,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Build image
-        run: bash build.sh ${{ matrix.image.name }}
+        run: docker build -f ${{ matrix.image.name }}.Dockerfile -t vapor-${{ matrix.image.name }}:latest .
+
+      - name: Tag image
+        run: docker tag vapor-${{ matrix.image.name }}:latest treggats/vapor:${{ matrix.image.name }}
+
+      - name: Publish image
+        if:  ${{ github.event.inputs.should_publish == 'true' }}
+        run: docker push treggats/vapor:${{ matrix.image.name }}

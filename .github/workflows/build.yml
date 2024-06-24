@@ -34,7 +34,7 @@ jobs:
           fetch-depth: 1
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@2.30.5
+        uses: shivammathur/setup-php@2.31.0
         with:
           php-version: ${{ matrix.image.php }}
           extensions: curl, libxml, mbstring, zip, pcntl, pdo, pdo_mysql, pdo_sqlite, bcmath, intl, gd, exif, iconv, json, ctype, mongodb, redis

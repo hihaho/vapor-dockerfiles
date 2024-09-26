@@ -29,7 +29,7 @@ jobs:
           - { php: 8.3, name: php83}
 
     steps:
-      - uses: actions/checkout@v4.1.7
+      - uses: actions/checkout@v4.2.0
         with:
           fetch-depth: 1
 
